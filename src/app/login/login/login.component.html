@@ -1,18 +1,23 @@
-<div class="container pt-5 m-auto">
-  <h1>Sign in:</h1>
-  <p>{{ model | json}}</p>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="model.Username" formControlName="username"/>
+<div class="container pt-5 " style="width:35%;">
+  <div class="card border-light mb-3">
+    <div class="card-body">
+      <h2 class="card-title">Sign in:</h2>
+      <p>{{ model | json}}</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="model.Username" formControlName="username"/>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" placeholder="Password"  [(ngModel)]="model.Password" formControlName="password">
+        </div>
+
+        <button type="submit" class="btn kleur mt-2" style="color:#FFFFFF">login</button>
+      </form>
+      <div *ngIf="error">{{errorMessage}}</div>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" id="password" placeholder="Password"  [(ngModel)]="model.Password" formControlName="password">
-    </div>
-
-    <button type="submit" class="btn btn-primary">login</button>
-
-  </form>
 </div>
