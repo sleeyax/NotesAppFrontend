@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit {
 
   onRegistrate()
   {
+    user: User;
     if (this.registrationForm)
     console.log("joow");
   }
