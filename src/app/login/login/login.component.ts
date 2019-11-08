@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserLogin} from "../../models/user-login.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthenticateService} from "../../services/authenticate.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,12 +19,11 @@ export class LoginComponent implements OnInit {
   fout : boolean = false;
   foutmelding : string;
 
-  constructor(){}
-  // constructor(private authenticateService : AuthenticateService, private router: Router) {
-  //   this.authenticateService.isAangemeld.subscribe(result=>{
-  //     this.aangemeld=result
-  //   })
-  // }
+  constructor(private authenticateService : AuthenticateService, private router: Router) {
+    this.authenticateService.isLoggedIn.subscribe(result=>{
+      this.aangemeld=result
+    })
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     // this.authenticateService.authenticate(this.model).subscribe(result => {
     //     localStorage.setItem("token", result.token);
-    //     this.authenticateService.isAangemeld.next(true);
+    //     this.authenticateService.isLoggedIn.next(true);
     //     this.router.navigate(['/'])
     //   },
     //   error =>{
