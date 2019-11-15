@@ -1,6 +1,9 @@
+// @ts-ignore
 import { Component } from "@angular/core";
 import {AuthenticateService} from "./services/authenticate.service";
+import {Router} from "@angular/router";
 
+// @ts-ignore
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,13 +13,13 @@ import {AuthenticateService} from "./services/authenticate.service";
 export class AppComponent {
   title = 'notesAppFrontEnd';
 
-  //todo: NgIf loggedIn aan html file toevoegen (enkel menu items showen na login)
   loggedIn : boolean;
 
-  constructor(private authenticateService : AuthenticateService){
-    this.authenticateService.isLoggedIn.subscribe(result=>{
+  constructor(private authenticateService : AuthenticateService, private router: Router){
+    this.authenticateService.isLoggedIn.subscribe(result =>{
       this.loggedIn=result
-    })
+    });
+
     if(localStorage.getItem("token")!=null){
       this.loggedIn=true
     }
@@ -30,5 +33,10 @@ export class AppComponent {
     this.authenticateService.isLoggedIn.subscribe(result=>{
       this.loggedIn=result
     })
+  }
+
+  toLogin()
+  {
+    this.router.navigateByUrl("/register");
   }
 }
