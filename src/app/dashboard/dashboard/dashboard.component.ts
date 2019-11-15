@@ -9,6 +9,18 @@ export class DashboardComponent implements OnInit {
 
   constructor() { }
 
+  editNote(){
+
+  }
+
+  removeNote(){
+
+  }
+
+  addNote(){
+
+  }
+
   ngOnInit() {
   }
 
