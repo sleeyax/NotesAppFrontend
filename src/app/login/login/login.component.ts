@@ -14,46 +14,24 @@ export class LoginComponent implements OnInit {
 
   model : UserLogin = new UserLogin("","");
   submitted : boolean = false;
-  loggedIn : boolean;
-  loginForm: FormGroup;
   error : boolean = false;
   errorMessage : string;
 
-  constructor(private authenticateService : AuthenticateService, private router: Router) {
-    this.authenticateService.isLoggedIn.subscribe(result=>{
-      this.loggedIn=result
-    })
-  }
+  constructor(private authenticateService : AuthenticateService, private router: Router) {}
 
-  ngOnInit() {
-    if(localStorage.getItem('token') != null){
-      this.loggedIn = true;
-      console.log('aangemeld');
-    }
-    else{
-      this.loggedIn=false;
-      console.log("niet aangemeld");
-    }
-
-    this.loginForm = new FormGroup({
-      username: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
-      password: new FormControl('', { validators: [Validators.required, Validators.minLength(5)]})
-    });
-  }
+  ngOnInit() {}
 
   onSubmit() {
     this.submitted = true;
-    this.authenticateService.authenticate(this.model).subscribe(result => {
-        localStorage.setItem("token", result.token);
-        this.authenticateService.isLoggedIn.next(true);
-        this.router.navigate(['/'])
-      },
-      error =>{
-        this.error=true;
-        this.submitted=false;
-        this.errorMessage = "Username or password incorrect."
-      }
-    );
+    this.authenticateService.authenticate(this.model, _ => {
+      console.log('logged in');
+      this.router.navigate(['/']);
+    }, err => {
+      console.error(err);
+      this.error = true;
+      this.submitted = false;
+      this.errorMessage = "email or password incorrect.";
+    });
   }
 }
 

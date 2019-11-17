@@ -3,15 +3,15 @@
     <div class="card-body">
       <h2 class="card-title">Sign in:</h2>
       <p>{{ model | json}}</p>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="model.Username" formControlName="username"/>
+          <label for="username">email:</label>
+          <input type="text" class="form-control" id="username" placeholder="email" [(ngModel)]="model.email" name="username"/>
         </div>
 
         <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" class="form-control" id="password" placeholder="Password"  [(ngModel)]="model.Password" formControlName="password">
+          <label for="password">password:</label>
+          <input type="password" class="form-control" id="password" placeholder="password" [(ngModel)]="model.password" name="password">
         </div>
 
         <button type="submit" class="btn btn-success kleur mt-2" style="color:#FFFFFF">Sign in</button>
