@@ -13,26 +13,16 @@ import {Router} from "@angular/router";
 export class AppComponent {
   title = 'notesAppFrontEnd';
 
-  loggedIn : boolean;
+  loggedIn : boolean = false;
 
-  constructor(private authenticateService : AuthenticateService, private router: Router){
+  constructor(private authenticateService : AuthenticateService, private router: Router) {
     this.authenticateService.isLoggedIn.subscribe(result =>{
       this.loggedIn=result
     });
-
-    if(localStorage.getItem("token")!=null){
-      this.loggedIn=true
-    }
-    else{
-      this.loggedIn=false;
-    }
   }
 
   logOut(){
-    this.authenticateService.logOut()
-    this.authenticateService.isLoggedIn.subscribe(result=>{
-      this.loggedIn=result
-    })
+    this.authenticateService.logOut();
   }
 
   toLogin()

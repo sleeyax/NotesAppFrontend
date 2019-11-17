@@ -8,24 +8,31 @@
         <a class="nav-link active" routerLink="/" routerLinkActive="active"><img src="../assets/resources/logo.png" /> </a>
       </li>
     </ul>
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right" *ngIf="loggedIn; else notLoggedIn">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        <a class="nav-link" routerLink="/logout" routerLinkActive="active" (click)="logOut()">Logout</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/" routerLinkActive="active">Dashboard</a>
       </li>
     </ul>
+    <ng-template #notLoggedIn>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        </li>
+      </ul>
+    </ng-template>
   </div>
 </nav>
 
 <router-outlet></router-outlet>
 
 <!-- Footer -->
-<footer class=" fixed-bottom page-footer font-small groen mt-5 pt-5">
+<footer class=" fixed-bottom page-footer font-small groen mt-5 pt-5" *ngIf="!loggedIn">
 
   <!-- Footer Elements -->
   <div class="container">
