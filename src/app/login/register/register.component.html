@@ -1,16 +1,16 @@
 <div class="container pt-5">
-  <form (ngSubmit)="onRegistrate()" [formGroup]="registrationForm">
+  <form (ngSubmit)="onRegisterFormSubmit()" [formGroup]="registrationForm">
     <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username"/>
+      <label for="username">email:</label>
+      <input type="text" class="form-control" id="username" placeholder="email" formControlName="username"/>
     </div>
     <div class="form-group">
       <label for="mail">E-mail:</label>
       <input type="email" class="form-control" id="mail" placeholder="E-mail" formControlName="email"/>
     </div>
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+      <label for="password">password:</label>
+      <input type="password" class="form-control" id="password" placeholder="password" formControlName="password">
     </div>
     <div class="form-group">
       <label for="controlpassword">Herhaal password:</label>
