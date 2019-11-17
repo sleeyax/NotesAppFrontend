@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UserLogin } from '../models/user-login.model';
-import { Router } from '@angular/router';
-import {User} from "../models/user.model";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticateService {
-  isLoggedIn = new BehaviorSubject(false);
+  isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(this.token != null);
 
-  constructor(private _httpClient: HttpClient, private router : Router) { }
+  constructor(private _api: ApiService) { }
 
-  authenticate(userLogin: UserLogin): Observable<User> {
+  authenticate(userLogin: UserLogin, onSuccess?: Function, onError?: Function) {
+    this._api.login(userLogin).subscribe(res => {
+      if (!res.token) throw 'Token not found in response body!';
 
-    //todo: URL AANPASSEN
-    return this._httpClient.post<User>("https://localhost:44350/api/User/authenticate", userLogin);
+      console.log('logged in - Token: ' + res.token);
+      localStorage.setItem('token', res.token);
+      this.isLoggedIn.next(true);
+      onSuccess(res);
+    }, err => onError(err));
   }
 
   logOut(){
     localStorage.removeItem("token");
     this.isLoggedIn.next(false);
+  }
+
+  get token(): string|null {
+    return localStorage.getItem('token');
   }
 }
