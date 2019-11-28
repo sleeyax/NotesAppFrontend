@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {User} from '../../models/user.model';
 import {ApiService} from "../../services/api.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -11,8 +12,10 @@ import {ApiService} from "../../services/api.service";
 export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
+  errorBool : boolean = false;
+  errorMessage : string = "";
 
-  constructor(private _api: ApiService) {
+  constructor(private _api: ApiService, private _router : Router) {
     this.registrationForm = new FormGroup({
       username: new FormControl('', {validators: [Validators.required, Validators.minLength(4)]}),
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
@@ -25,13 +28,20 @@ export class RegisterComponent implements OnInit {
 
   onRegisterFormSubmit()
   {
-    // TODO: create user object and submit it using the api service
-    //       if success, redirect to login page OR send another request to log the user in and redirect to dashboard instead
-    //       if failed, show error message to the user
     const form = this.registrationForm.value;
     console.log(form);
-    // const user = new User(form.firstName, form.lastName, form.email, form.password);
-    // console.log(user);
-    // ...
+
+    const user = new User(0,form.username, form.email, form.password);
+    this._api.createUser(user).subscribe(result => {
+        this._router.navigate(['/login']);
+      },
+      error =>{
+        this.errorBool=true;
+        //this.submitted=false;
+        this.errorMessage = "Registration failed, please try again."
+      }
+    );
+
+    console.log(user);
   }
 }
