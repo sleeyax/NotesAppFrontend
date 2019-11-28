@@ -42,14 +42,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="title" class="col-form-label">Title:</label>
-            <input type="text" class="form-control" id="title">
-          </div>
-          <div class="form-group">
-            <label for="content" class="col-form-label">Content:</label>
-            <textarea class="form-control" id="content"></textarea>
+            <label for="content" class="col-form-label">Note Content:</label>
+            <textarea class="form-control" id="content" [(ngModel)]="noteBody"></textarea>
           </div>
         </form>
       </div>

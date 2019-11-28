@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     const form = this.registrationForm.value;
     console.log(form);
 
-    const user = new User(0,form.username, form.email, form.password);
+    const user = new User(0,form.email, form.password,form.username);
     this._api.createUser(user).subscribe(result => {
         this._router.navigate(['/login']);
       },
