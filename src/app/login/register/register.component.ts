@@ -34,11 +34,13 @@ export class RegisterComponent implements OnInit {
     const user = new User(0,form.email, form.password,form.username);
     this._api.createUser(user).subscribe(result => {
         this._router.navigate(['/login']);
+
       },
       error =>{
         this.errorBool=true;
         //this.submitted=false;
         this.errorMessage = "Registration failed, please try again."
+
       }
     );
 

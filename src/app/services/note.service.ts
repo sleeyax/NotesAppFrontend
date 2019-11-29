@@ -19,11 +19,17 @@ export class NoteService {
     return this._httpClient.post<Note>(`${this._url}/${this._services.edge}/notes/add`, note);
   }
 
+  getNoteByNoteID(noteID : number){
+    return this._httpClient.get<Note>(`${this._url}/${this._services.edge}/notes/getNotesByNoteID/`+ noteID);
+  }
+
   getNotesByUserID(): Observable<Note[]> {
+    //todo: ingelogde userID ophalen en meegeven
     return this._httpClient.get<Note[]>(`${this._url}/${this._services.edge}/notes/get`);
   }
 
   deleteNote(note:  Note) {
+    //todo: te verwijderen object meegeven
     return this._httpClient.delete(`${this._url}/${this._services.edge}/notes/delete`);
   }
 }

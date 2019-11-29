@@ -14,11 +14,15 @@ export class DashboardComponent implements OnInit {
   note : Note;
   date : Date;
   notes : Observable<Note[]>;
+  editNoteContent : string;
+  editNoteNote: Note;
 
   constructor(private _noteService : NoteService) { }
 
-  editNote(){
-
+  editNote(noteID: number){
+     this._noteService.getNoteByNoteID(noteID).subscribe(result=>{
+       this.editNoteNote = result;
+     });
   }
 
   removeNote(note : Note){
