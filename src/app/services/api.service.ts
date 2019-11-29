@@ -9,8 +9,8 @@ import {User} from "../models/user.model";
   providedIn: 'root'
 })
 export class ApiService {
-  //private readonly _url: string = 'http://127.0.0.1:8080';
-  private readonly _url: string = 'https://helpless-wombat-90.localtunnel.me';
+  private readonly _url: string = 'http://127.0.0.1:8080';
+  //private readonly _url: string = 'https://helpless-wombat-90.localtunnel.me';
   private readonly _services = {
     auth: 'auth',
     edge: 'listings'
