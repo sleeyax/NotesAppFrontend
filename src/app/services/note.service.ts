@@ -18,4 +18,8 @@ export class NoteService {
   createNote(note: Note): Observable<Note> {
     return this._httpClient.post<Note>(`${this._url}/${this._services.edge}/notes/add`, note);
   }
+
+  getNotesByUserID(): Observable<Note[]> {
+    return this._httpClient.get<Note[]>(`${this._url}/${this._services.edge}/notes/get`);
+  }
 }

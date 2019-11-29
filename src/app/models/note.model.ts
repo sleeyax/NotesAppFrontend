@@ -2,9 +2,9 @@ export class Note {
   noteID: number;
   userID: number;
   note: string;
-  updatedAt?: string;
+  updatedAt?: Date;
 
-  constructor(noteID: number, userID: number, note: string, updatedAt?: string)
+  constructor(noteID: number, userID: number, note: string, updatedAt?: Date)
   {
     this.noteID = noteID;
     this.userID = userID;
