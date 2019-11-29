@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   onSubmit(){
     this.date = new Date();
     //TODO: userID ophalen met zuul
-    this.note = new Note(0,0,this.noteBody, this.date);
+    this.note = new Note(0,+localStorage.getItem("userID"),this.noteBody, this.date);
     this._noteService.createNote(this.note).subscribe(res =>{
       this.ngOnInit();
     });
