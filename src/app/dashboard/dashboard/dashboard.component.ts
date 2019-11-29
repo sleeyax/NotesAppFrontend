@@ -21,12 +21,8 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  removeNote(){
-
-  }
-
-  addNote(){
-
+  removeNote(note : Note){
+    this._noteService.deleteNote(note).subscribe();
   }
 
   onSubmit(){

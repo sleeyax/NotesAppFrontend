@@ -22,4 +22,8 @@ export class NoteService {
   getNotesByUserID(): Observable<Note[]> {
     return this._httpClient.get<Note[]>(`${this._url}/${this._services.edge}/notes/get`);
   }
+
+  deleteNote(note:  Note) {
+    return this._httpClient.delete(`${this._url}/${this._services.edge}/notes/delete`);
+  }
 }
