@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   editNote(noteID: number){
      this._noteService.getNoteByNoteID(noteID).subscribe(result=>{
        this.editNoteNote = result;
+       this.noteBody = this.editNoteNote.note;
      });
   }
 
@@ -34,6 +35,14 @@ export class DashboardComponent implements OnInit {
     //TODO: userID ophalen met zuul
     this.note = new Note(0,+localStorage.getItem("userID"),this.noteBody, this.date);
     this._noteService.createNote(this.note).subscribe(res =>{
+      this.ngOnInit();
+    });
+  }
+
+  onSubmitEdit(){
+    this.date = new Date();
+    this.note = new Note(0,+localStorage.getItem("userID"),this.noteBody, this.date);
+    this._noteService.updateNote(this.note).subscribe(res =>{
       this.ngOnInit();
     });
   }
