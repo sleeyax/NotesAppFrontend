@@ -1,13 +1,13 @@
 export class Note {
-  noteID: number;
-  userID: number;
+  id: string;
+  userId: number;
   note: string;
   updatedAt?: Date;
 
-  constructor(noteID: number, userID: number, note: string, updatedAt?: Date)
+  constructor(noteID: string, userID: number, note: string, updatedAt?: Date)
   {
-    this.noteID = noteID;
-    this.userID = userID;
+    this.id = noteID;
+    this.userId = userID;
     this.note = note;
     this.updatedAt = updatedAt;
   }
