@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {NoteService} from "../../services/note.service";
 import {Note} from "../../models/note.model";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {ApiService} from "../../services/api.service";
+import {AuthenticateService} from "../../services/authenticate.service";
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,44 +14,48 @@ import {Observable} from "rxjs";
 export class DashboardComponent implements OnInit {
 
   noteBody : string;
-  note : Note;
+  editNoteBody : string;
+  editNoteId: string;
   date : Date;
   notes : Observable<Note[]>;
   editNoteContent : string;
   editNoteNote: Note;
+  private authenticatedUser = this._authService.user;
+  private refresh: Subject = new Subject();
 
-  constructor(private _noteService : NoteService) { }
+  constructor(private _apiService : ApiService, private _authService: AuthenticateService) { }
 
-  editNote(noteID: number){
-     this._noteService.getNoteByNoteID(noteID).subscribe(result=>{
-       this.editNoteNote = result;
-       this.noteBody = this.editNoteNote.note;
-     });
+  editNote(note: Note){
+    console.log(note.note);
+    this.editNoteBody = note.note;
+    this.editNoteId = note.id;
   }
 
-  removeNote(note : Note){
-    this._noteService.deleteNote(note).subscribe();
+  removeNote(note : Note) {
+    this._apiService.deleteNote(note.id, this.authenticatedUser.id).subscribe(res => {
+      console.log(res);
+      // 'refresh' page
+      this.refresh.next(true);
+    }, err => console.error(err));
   }
 
   onSubmit(){
-    this.date = new Date();
-    //TODO: userID ophalen met zuul
-    this.note = new Note(0,+localStorage.getItem("userID"),this.noteBody, this.date);
-    this._noteService.createNote(this.note).subscribe(res =>{
-      this.ngOnInit();
-    });
+    this._apiService.createNote(new Note(null, this.authenticatedUser.id, this.noteBody)).subscribe(res =>{
+      console.log(res);
+      this.refresh.next(true);
+    }, err => console.error(err));
   }
 
   onSubmitEdit(){
-    this.date = new Date();
-    this.note = new Note(0,+localStorage.getItem("userID"),this.noteBody, this.date);
-    this._noteService.updateNote(this.note).subscribe(res =>{
-      this.ngOnInit();
-    });
+    this._apiService.updateNote(new Note(this.editNoteId, this.authenticatedUser.id, this.editNoteBody)).subscribe(res =>{
+      console.log(res);
+      this.refresh.next(true);
+    }, err => console.error(err));
   }
 
   ngOnInit() {
-    this.notes = this._noteService.getNotesByUserID();
+    this.refresh.subscribe(() => this.notes = this._apiService.getNotesByUserID(this.authenticatedUser.id));
+    this.refresh.next(true);
   }
 
 }

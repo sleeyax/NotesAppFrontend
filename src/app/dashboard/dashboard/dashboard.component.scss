@@ -1,4 +1,5 @@
 #myAddButton {
-  position: fixed;
+  position: absolute;
+  z-index: 99;
   right: 10px;
 }
