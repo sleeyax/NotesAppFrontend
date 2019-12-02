@@ -2,7 +2,7 @@
   <div class="card border-light mb-3">
     <div class="card-body">
       <h2 class="card-title">Sign in:</h2>
-      <p>{{ model | json}}</p>
+      <!--<p>{{ model | json}}</p>-->
       <form (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="username">email:</label>
@@ -16,7 +16,7 @@
 
         <button type="submit" class="btn btn-success kleur mt-2" style="color:#FFFFFF">Sign in</button>
       </form>
-      <div *ngIf="error">{{errorMessage}}</div>
+      <div *ngIf="error" class="text-danger">{{errorMessage}}</div>
     </div>
   </div>
 
