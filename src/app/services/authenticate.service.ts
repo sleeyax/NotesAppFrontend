@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { UserLogin } from '../models/user-login.model';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {UserLogin} from '../models/user-login.model';
 import {ApiService} from "./api.service";
 
 @Injectable({
@@ -23,12 +23,31 @@ export class AuthenticateService {
     }, err => onError(err));
   }
 
-  logOut(){
+  logOut() {
     localStorage.removeItem("token");
     this.isLoggedIn.next(false);
   }
 
-  get token(): string|null {
+  get token(): string | null {
     return localStorage.getItem('token');
+  }
+
+  /**
+   * Get JWT payload data, which contains user details
+   */
+  get user(): { firstName: any; id: any } {
+    const token = this.token;
+
+    try {
+      const splitted = token.split('.');
+      const payload = JSON.parse(atob(splitted[1]));
+
+      return {
+        id: payload['id'],
+        firstName: payload['firstName']
+      };
+    } catch (e) {
+      throw 'Failed to parse JWT!';
+    }
   }
 }
