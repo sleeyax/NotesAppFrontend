@@ -23,6 +23,7 @@ export class AppComponent {
 
   logOut(){
     this.authenticateService.logOut();
+    this.router.navigateByUrl('/login');
   }
 
   toLogin()
