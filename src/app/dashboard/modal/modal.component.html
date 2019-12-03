@@ -26,6 +26,17 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Convert
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="toUpper()">To upper</a>
+                        <a class="dropdown-item" (click)="toLower()">To lower</a>
+                        <a class="dropdown-item" (click)="toCapitalized()">Capitalize</a>
+                        <a class="dropdown-item" (click)="toLeet()">1337</a>
+                    </div>
+                </div>
                 <button type="button" class="btn btn-success" (click)="checkSpelling(note)">Check spelling</button>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>

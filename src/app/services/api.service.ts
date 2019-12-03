@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UserLogin} from "../models/user-login.model";
 import {HttpClient} from "@angular/common/http";
 import {TokenResponse} from "../models/token-response.model";
@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {User} from "../models/user.model";
 import {Note} from "../models/note.model";
 import Spelling from "../models/spelling-model";
+import {TextConversion} from "../TextConversion";
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,36 @@ export class ApiService {
    */
   checkSpelling(text: string) {
     return this._httpClient.post<Spelling>(`${this._url}/${this._services.edge}/spelling/check`, {text});
+  }
+
+  /**
+   * Convert text to specified format
+   * Converts to lowercase by default
+   * @param text
+   * @param conversion
+   */
+  convert(text: string, conversion?: TextConversion) {
+    let resource;
+
+    switch (conversion) {
+      case TextConversion.UPPER:
+        resource = 'toupper';
+        break;
+      case TextConversion.CAPITALIZE:
+        resource = 'tocapitalize';
+        break;
+      case TextConversion.LEET:
+        resource = 'toleet';
+        break;
+      case TextConversion.LOWER:
+      default:
+        resource = 'tolower';
+        break;
+    }
+
+    return this._httpClient.post<{
+      originalText: string,
+      convertedText: string
+    }>(`${this._url}/${this._services.edge}/convert/${resource}`, {text});
   }
 }

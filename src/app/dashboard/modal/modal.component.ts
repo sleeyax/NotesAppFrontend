@@ -3,6 +3,7 @@ import {ApiService} from "../../services/api.service";
 import {AuthenticateService} from "../../services/authenticate.service";
 import {Note} from "../../models/note.model";
 import Spelling from "../../models/spelling-model";
+import {TextConversion} from "../../TextConversion";
 
 @Component({
   selector: 'app-modal',
@@ -44,5 +45,28 @@ export class ModalComponent implements OnInit {
 
   get isEdit() {
     return this.noteId != null;
+  }
+
+  convert(text: string, conversion: TextConversion) {
+    this._apiService.convert(text, conversion).subscribe(converted => {
+      console.log(converted);
+      this.note = converted.convertedText;
+    }, err => console.error(err));
+  }
+
+  toUpper() {
+    this.convert(this.note, TextConversion.UPPER);
+  }
+
+  toLower() {
+    this.convert(this.note, TextConversion.LOWER);
+  }
+
+  toCapitalized() {
+    this.convert(this.note, TextConversion.CAPITALIZE);
+  }
+
+  toLeet() {
+    this.convert(this.note, TextConversion.LEET);
   }
 }
