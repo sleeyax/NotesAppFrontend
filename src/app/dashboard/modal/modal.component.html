@@ -12,10 +12,21 @@
                     <label for="content" class="col-form-label">Note Content:</label>
                     <textarea class="form-control" id="content" [(ngModel)]="note" name="addNote"></textarea>
                 </div>
+                <div class="container" *ngIf="spellingCheckResults != null">
+                    <p><b>Spelling check results</b></p>
+                    <span>Possible issues found: {{spellingCheckResults.matches.length}}</span>
+                    <ul *ngFor="let match of spellingCheckResults.matches">
+                        <li>{{match.message}}
+                            <ul *ngFor="let replacement of match.replacements">
+                                <li>{{replacement.value}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success" (click)="checkSpelling(note)">Check spelling</button>
+                <button type="button" class="btn btn-success" (click)="checkSpelling(note)">Check spelling</button>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>

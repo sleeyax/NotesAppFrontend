@@ -5,6 +5,7 @@ import {TokenResponse} from "../models/token-response.model";
 import {Observable} from "rxjs";
 import {User} from "../models/user.model";
 import {Note} from "../models/note.model";
+import Spelling from "../models/spelling-model";
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,13 @@ export class ApiService {
    */
   deleteNote(noteId: string, userId: number) {
     return this._httpClient.delete(`${this._url}/${this._services.edge}/notes/delete/${noteId}/user/${userId}`);
+  }
+
+  /**
+   * Check spelling of specified text
+   * @param text
+   */
+  checkSpelling(text: string) {
+    return this._httpClient.post<Spelling>(`${this._url}/${this._services.edge}/spelling/check`, {text});
   }
 }

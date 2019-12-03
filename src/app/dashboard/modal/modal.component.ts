@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api.service";
 import {AuthenticateService} from "../../services/authenticate.service";
 import {Note} from "../../models/note.model";
+import Spelling from "../../models/spelling-model";
 
 @Component({
   selector: 'app-modal',
@@ -20,6 +21,7 @@ export class ModalComponent implements OnInit {
   onSubmit: Function;
 
   private authenticatedUser = this._authService.user;
+  private spellingCheckResults: Spelling;
 
   constructor(private _apiService : ApiService, private _authService: AuthenticateService) { }
 
@@ -36,6 +38,7 @@ export class ModalComponent implements OnInit {
   checkSpelling(text: string) {
     this._apiService.checkSpelling(text).subscribe(res => {
       console.log(res);
+      this.spellingCheckResults = res;
     }, err => console.error(err));
   }
 
