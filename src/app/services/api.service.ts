@@ -28,12 +28,21 @@ export class ApiService {
     return this._httpClient.post<TokenResponse>(`${this._url}/${this._services.auth}/login`, userLogin);
   }
 
+
   /**
    * Add a new user
    * @param user
    */
   createUser(user: User): Observable<User> {
     return this._httpClient.post<User>(`${this._url}/${this._services.auth}/users/add`, user);
+  }
+
+  updateUser(user : User){
+    return this._httpClient.put<User>(`${this._url}/${this._services.auth}/users/putUser`, user);
+  }
+
+  deleteUserByID(userId: number) {
+    return this._httpClient.delete(`${this._url}/${this._services.auth}/users/delUser/${userId}`);
   }
 
   /**

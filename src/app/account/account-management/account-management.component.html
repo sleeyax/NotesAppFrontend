@@ -1,1 +1,31 @@
-<p>account-management works!</p>
+<div class="container pt-5 " style="width:35%;">
+  <div class="card border-sark mb-3">
+    <div class="card-body">
+      <h2 class="card-title">My Account:</h2>
+      <p>{{ model | json}}</p>
+      <form (ngSubmit)="onSubmit()" #updateForm="ngForm">
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+          <input type="email" class="form-control" id="email" required placeholder="email" [(ngModel)]="model.email" name="email"/>
+        </div>
+        <div class="form-group">
+          <label for="firstName">First name:</label>
+          <input type="text" class="form-control" id="firstName" required placeholder="First name" [(ngModel)]="model.firstName" name="firstName"/>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name:</label>
+          <input type="text" class="form-control" id="lastName" required placeholder="Last name" [(ngModel)]="model.lastName" name="lastName"/>
+        </div>
+        <div class="form-group">
+          <label for="password">New password:</label>
+          <input type="password" class="form-control" id="password" required minlength="5" placeholder="password" [(ngModel)]="model.password" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-success kleur mt-2" style="color:#FFFFFF" [disabled]="!updateForm.valid">Update Account</button>
+      </form>
+      <div *ngIf="errorBool" class="text-danger">{{errorMessage}}</div>
+      <button type="button" class="btn btn-danger mt-2" (click)="deleteAccount()">Delete Account</button>
+    </div>
+  </div>
+
+</div>

@@ -14,11 +14,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {SecurityInterceptorService} from "./services/security.interceptor.service";
+import {AccountModule} from "./account/account.module";
+import {AccountManagementComponent} from "./account/account-management/account-management.component";
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'account-management', component: AccountManagementComponent }
 ];
 
 @NgModule({
@@ -31,6 +34,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     DashboardModule,
     LoginModule,
+    AccountModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
   providers: [{
