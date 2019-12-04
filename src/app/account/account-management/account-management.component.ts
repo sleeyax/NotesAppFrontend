@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/user.model";
@@ -23,8 +22,8 @@ export class AccountManagementComponent implements OnInit {
 
   ngOnInit() {
     this.currentId = this._authService.user.id;
-    this.model.firstName = this._authService.user.firstName;
     this._api.getUserByID(this.currentId).subscribe(res=>{
+      this.model.firstName = res.firstName;
       this.model.lastName = res.lastName;
       this.model.email = res.email;
       this.model.password = res.password;
@@ -32,8 +31,9 @@ export class AccountManagementComponent implements OnInit {
   }
 
   onSubmit() {
-    this.model.userID = this.currentId;
-    this._api.updateUser(this.model).subscribe(result => {
+    this.model.id = this.currentId;
+    this._api.updateUser(this.model, this.currentId).subscribe(result => {
+      console.log(result);
         this._router.navigate(['/account-management']);
       },
       error =>{
@@ -46,7 +46,12 @@ export class AccountManagementComponent implements OnInit {
   }
 
   deleteAccount() {
-    this._api.deleteUserByID(this.currentId).subscribe();
-    this._router.navigate(['/register']);
+    this._api.deleteUserByID(this.currentId).subscribe(
+      () => {
+        this._authService.logOut();
+        this._router.navigate(['/register']);
+      },
+      err => console.error(err)
+    );
   }
 }

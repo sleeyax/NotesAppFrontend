@@ -30,7 +30,7 @@ export class ApiService {
 
 
   getUserByID(userid: number): Observable<User> {
-    return this._httpClient.get<User>(`${this._url}/${this._services.auth}/users/?id=${userid}` );
+    return this._httpClient.get<User>(`${this._url}/${this._services.edge}/users/search/userid=${userid}` );
   }
 
   /**
@@ -41,12 +41,12 @@ export class ApiService {
     return this._httpClient.post<User>(`${this._url}/${this._services.auth}/users/add`, user);
   }
 
-  updateUser(user : User){
-    return this._httpClient.put<User>(`${this._url}/${this._services.auth}/users/putUser/`, user);
+  updateUser(user : User, userId: number){
+    return this._httpClient.put<User>(`${this._url}/${this._services.edge}/users/${userId}`, user);
   }
 
   deleteUserByID(userId: number) {
-    return this._httpClient.delete(`${this._url}/${this._services.auth}/users/?id=${userId}`);
+    return this._httpClient.delete(`${this._url}/${this._services.edge}/users/${userId}`);
   }
 
   /**

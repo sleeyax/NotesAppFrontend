@@ -45,11 +45,11 @@ export class LoginComponent implements OnInit {
 
   }
 
-  //onSubmit() {
+  //onSubmitForm() {
   //  this.submitted = true;
   //  this.authenticateService.authenticate(this.model).subscribe(result => {
   //      localStorage.setItem("token", result.token);
-  //      localStorage.setItem("userID", result.userID);
+  //      localStorage.setItem("userId", result.userId);
   //      this.authenticateService.isLoggedIn.next(true);
   //      this.router.navigate(['/'])
   //    },
