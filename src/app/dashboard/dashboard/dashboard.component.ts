@@ -47,4 +47,10 @@ export class DashboardComponent implements OnInit {
   onModalSubmit() {
     return () => this.refresh.next(true);
   }
+
+  addNote() {
+    this.noteBody = '';
+    this.noteId = null;
+    console.log(this.noteId);
+  }
 }
