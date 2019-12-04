@@ -29,6 +29,10 @@ export class ApiService {
   }
 
 
+  getUserByID(userid: number): Observable<User> {
+    return this._httpClient.get<User>(`${this._url}/${this._services.auth}/users/?id=${userid}` );
+  }
+
   /**
    * Add a new user
    * @param user
@@ -38,11 +42,11 @@ export class ApiService {
   }
 
   updateUser(user : User){
-    return this._httpClient.put<User>(`${this._url}/${this._services.auth}/users/putUser`, user);
+    return this._httpClient.put<User>(`${this._url}/${this._services.auth}/users/putUser/`, user);
   }
 
   deleteUserByID(userId: number) {
-    return this._httpClient.delete(`${this._url}/${this._services.auth}/users/delUser/${userId}`);
+    return this._httpClient.delete(`${this._url}/${this._services.auth}/users/?id=${userId}`);
   }
 
   /**

@@ -35,7 +35,7 @@ export class AuthenticateService {
   /**
    * Get JWT payload data, which contains user details
    */
-  get user(): { firstName: any; lastName: any; email: any; id: any } {
+  get user(): { firstName: any; id: any } {
     const token = this.token;
 
     try {
@@ -44,9 +44,7 @@ export class AuthenticateService {
 
       return {
         id: payload['id'],
-        firstName: payload['firstName'],
-        lastName: payload['lastName'],
-        email: payload['email'],
+        firstName: payload['firstName']
       };
     } catch (e) {
       throw 'Failed to parse JWT!';

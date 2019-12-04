@@ -23,9 +23,12 @@ export class AccountManagementComponent implements OnInit {
 
   ngOnInit() {
     this.currentId = this._authService.user.id;
-    this.model.email = this._authService.user.email;
-    this.model.firstName = this._authService.user.email;
-    this.model.lastName = this._authService.user.lastName;
+    this.model.firstName = this._authService.user.firstName;
+    this._api.getUserByID(this.currentId).subscribe(res=>{
+      this.model.lastName = res.lastName;
+      this.model.email = res.email;
+      this.model.password = res.password;
+    });
   }
 
   onSubmit() {
