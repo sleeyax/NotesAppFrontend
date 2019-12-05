@@ -27,6 +27,7 @@ export class ModalComponent implements OnInit {
   constructor(private _apiService : ApiService, private _authService: AuthenticateService) { }
 
   ngOnInit() {
+    
   }
 
   onSubmitForm() {
@@ -68,5 +69,9 @@ export class ModalComponent implements OnInit {
 
   toLeet() {
     this.convert(this.note, TextConversion.LEET);
+  }
+
+  onClose(){
+    this.spellingCheckResults = null;
   }
 }
